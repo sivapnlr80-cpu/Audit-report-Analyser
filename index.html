@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Financial Document Analyzer</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar__header">
+                <h2>Financial Analyzer</h2>
+            </div>
+            <nav class="sidebar__nav">
+                <button class="nav-item active" data-section="upload">
+                    📁 File Upload
+                </button>
+                <button class="nav-item" data-section="dashboard">
+                    📊 Dashboard
+                </button>
+                <button class="nav-item" data-section="missing">
+                    ❌ Missing Files
+                </button>
+                <button class="nav-item" data-section="validation">
+                    ✅ Validation
+                </button>
+                <button class="nav-item" data-section="documents">
+                    📄 Documents
+                </button>
+                <button class="nav-item" data-section="report">
+                    📋 Generate Report
+                </button>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Upload Section -->
+            <section id="upload" class="content-section active">
+                <div class="section-header">
+                    <h1>Upload Financial Documents</h1>
+                    <p>Upload a ZIP file containing PDF documents for analysis</p>
+                </div>
+                
+                <div class="upload-container">
+                    <div class="upload-area" id="uploadArea">
+                        <div class="upload-content">
+                            <div class="upload-icon">📁</div>
+                            <h3>Drag & Drop ZIP File Here</h3>
+                            <p>or <button class="btn btn--primary" id="selectFileBtn">Select File</button></p>
+                            <small>Only ZIP files are accepted</small>
+                        </div>
+                        <input type="file" id="fileInput" accept=".zip" hidden>
+                    </div>
+                    
+                    <div class="upload-status hidden" id="uploadStatus">
+                        <div class="file-info">
+                            <h4>File Information</h4>
+                            <div id="fileDetails"></div>
+                        </div>
+                        <div class="progress-container">
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="progressFill"></div>
+                            </div>
+                            <div class="progress-text" id="progressText">0%</div>
+                        </div>
+                        <button class="btn btn--secondary" id="resetBtn">Upload Another File</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Dashboard Section -->
+            <section id="dashboard" class="content-section">
+                <div class="section-header">
+                    <h1>Analysis Dashboard</h1>
+                    <p>Overview of document analysis results</p>
+                </div>
+                
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <div class="metric-icon success">📊</div>
+                        <div class="metric-content">
+                            <h3 id="totalFiles">0</h3>
+                            <p>PDF Files Processed</p>
+                        </div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-icon error" id="missingIcon">❌</div>
+                        <div class="metric-content">
+                            <h3 id="missingCount">0</h3>
+                            <p>Missing Files</p>
+                        </div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-icon" id="receiptIcon">💰</div>
+                        <div class="metric-content">
+                            <h3 id="receiptStatus">-</h3>
+                            <p>Receipt-Payment Balance</p>
+                        </div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-icon" id="trialIcon">⚖️</div>
+                        <div class="metric-content">
+                            <h3 id="trialStatus">-</h3>
+                            <p>Trial Balance Status</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="analysis-summary">
+                    <div class="card">
+                        <div class="card__header">
+                            <h3>Analysis Summary</h3>
+                        </div>
+                        <div class="card__body">
+                            <div class="summary-content" id="summaryContent">
+                                <p>Upload a ZIP file to begin analysis</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Missing Files Section -->
+            <section id="missing" class="content-section">
+                <div class="section-header">
+                    <h1>Missing Files Detection</h1>
+                    <p>Schedules (1-22) and Annexures (1-12) verification</p>
+                </div>
+                
+                <div class="missing-files-container">
+                    <div class="card">
+                        <div class="card__header">
+                            <h3>Schedules (1-22)</h3>
+                        </div>
+                        <div class="card__body">
+                            <div class="files-grid" id="schedulesGrid">
+                                <!-- Schedules will be populated here -->
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card__header">
+                            <h3>Annexures (1-12)</h3>
+                        </div>
+                        <div class="card__body">
+                            <div class="files-grid" id="annexuresGrid">
+                                <!-- Annexures will be populated here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Validation Section -->
+            <section id="validation" class="content-section">
+                <div class="section-header">
+                    <h1>Financial Data Validation</h1>
+                    <p>Receipt-Payment and Trial Balance verification</p>
+                </div>
+                
+                <div class="validation-container">
+                    <div class="card">
+                        <div class="card__header">
+                            <h3>Receipt-Payment Verification</h3>
+                        </div>
+                        <div class="card__body">
+                            <div class="validation-details" id="receiptValidation">
+                                <p>No data available</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card__header">
+                            <h3>Trial Balance Verification</h3>
+                        </div>
+                        <div class="card__body">
+                            <div class="validation-details" id="trialValidation">
+                                <p>No data available</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Documents Section -->
+            <section id="documents" class="content-section">
+                <div class="section-header">
+                    <h1>Document Analysis</h1>
+                    <p>Detailed file-by-file analysis results</p>
+                </div>
+                
+                <div class="documents-container">
+                    <div class="table-controls">
+                        <input type="text" class="form-control" id="searchInput" placeholder="Search documents...">
+                        <select class="form-control" id="statusFilter">
+                            <option value="">All Status</option>
+                            <option value="Complete">Complete</option>
+                            <option value="Issues">Issues</option>
+                        </select>
+                    </div>
+                    
+                    <div class="table-container">
+                        <table class="documents-table">
+                            <thead>
+                                <tr>
+                                    <th>Filename</th>
+                                    <th>Pages</th>
+                                    <th>Blank Pages</th>
+                                    <th>Financial Tables</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="documentsTableBody">
+                                <tr>
+                                    <td colspan="5" class="no-data">No documents analyzed yet</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Report Section -->
+            <section id="report" class="content-section">
+                <div class="section-header">
+                    <h1>Generate Report</h1>
+                    <p>Download comprehensive analysis report in Excel format</p>
+                </div>
+                
+                <div class="report-container">
+                    <div class="card">
+                        <div class="card__header">
+                            <h3>Report Generation</h3>
+                        </div>
+                        <div class="card__body">
+                            <div class="report-content">
+                                <div class="report-preview" id="reportPreview">
+                                    <h4>Report will include:</h4>
+                                    <ul>
+                                        <li>Complete file analysis summary</li>
+                                        <li>Missing schedules and annexures list</li>
+                                        <li>Receipt-Payment verification results</li>
+                                        <li>Trial balance consistency checks</li>
+                                        <li>Page-by-page financial data validation</li>
+                                        <li>Blank pages identification</li>
+                                    </ul>
+                                </div>
+                                
+                                <div class="report-actions">
+                                    <button class="btn btn--primary btn--lg" id="generateReportBtn" disabled>
+                                        📊 Generate Excel Report
+                                    </button>
+                                    <div class="report-status hidden" id="reportStatus">
+                                        <div class="progress-container">
+                                            <div class="progress-bar">
+                                                <div class="progress-fill" id="reportProgress"></div>
+                                            </div>
+                                            <div class="progress-text" id="reportProgressText">0%</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Modal for detailed view -->
+    <div class="modal hidden" id="detailModal">
+        <div class="modal-overlay" id="modalOverlay"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">Details</h3>
+                <button class="modal-close" id="modalClose">×</button>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- Content will be populated dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

@@ -1,4 +1,5 @@
-# Financial Document Analyzer
+# Create a comprehensive README file with instructions
+readme_content = '''# Financial Document Analyzer
 
 A comprehensive Python application for analyzing financial documents from ZIP files, identifying missing schedules and annexures, validating financial totals, and generating detailed Excel reports.
 
@@ -48,7 +49,7 @@ chmod +x setup_and_run.sh
    ```
 
 3. **Activate Virtual Environment**:
-   - Windows: `financial_analyzer_env\Scripts\activate`
+   - Windows: `financial_analyzer_env\\Scripts\\activate`
    - Linux/Mac: `source financial_analyzer_env/bin/activate`
 
 4. **Install Dependencies**:
@@ -210,3 +211,17 @@ For support, please:
 ---
 
 **Built with ❤️ using Python, Streamlit, and modern data analysis libraries**
+'''
+
+# Save README file
+with open("README.md", "w", encoding="utf-8") as f:
+    f.write(readme_content)
+
+print("✅ Comprehensive README.md file created")
+print("📖 Documentation includes:")
+print("   - Feature overview")
+print("   - Installation instructions")
+print("   - Usage guide")
+print("   - Technical requirements")
+print("   - Deployment options")
+print("   - Customization guide")
